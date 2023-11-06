@@ -29,6 +29,15 @@ impl Yakui {
         )
     }
 
+    fn start(&mut self) {
+        let ctx = unsafe { get_internal_gl() }.quad_context;
+        self.0.start(ctx);
+    }
+
+    fn finish(&mut self) {
+        self.0.finish();
+    }
+
     fn ui<F>(&mut self, f: F)
         where F : FnOnce(&mut yakui::Yakui) -> ()
     {
@@ -44,6 +53,16 @@ impl Yakui {
         gl.flush();
         self.0.draw(&mut gl.quad_context);
     }
+}
+
+/// Binds the yakui context to the current thread. Must be called once per frame.
+pub fn start() {
+    get_yakui().start();
+}
+
+/// Finishes the current yakui context and prepares it for rendering. Must be called once per frame.
+pub fn finish() {
+    get_yakui().finish();
 }
 
 /// Calculates yakui ui. Must be called once per frame.
