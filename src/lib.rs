@@ -2,7 +2,6 @@ use macroquad::window::get_internal_gl;
 use yakui_miniquad::*;
 use miniquad as mq;
 
-pub use yakui;
 pub use macroquad;
 
 struct Yakui(YakuiMiniQuad, usize);
@@ -31,6 +30,7 @@ impl Yakui {
 
     fn start(&mut self) {
         let ctx = unsafe { get_internal_gl() }.quad_context;
+        macroquad::input::utils::repeat_all_miniquad_input(self, self.1);
         self.0.start(ctx);
     }
 

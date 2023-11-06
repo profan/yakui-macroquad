@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 yakui-macroquad = { path = "../"}
+yakui = { version = "0.2.0", default_features = false }

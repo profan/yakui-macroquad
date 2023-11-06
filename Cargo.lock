@@ -570,8 +570,6 @@ name = "yakui-macroquad"
 version = "0.1.0"
 dependencies = [
  "macroquad",
- "miniquad",
- "yakui",
  "yakui-miniquad",
 ]
 

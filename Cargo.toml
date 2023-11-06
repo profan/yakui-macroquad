@@ -8,5 +8,3 @@ edition = "2021"
 [dependencies]
 yakui-miniquad = { path = "../yakui-miniquad"}
 macroquad = { version = "0.3.24", default-features = false }
-miniquad = { version = "0.3.13", default-features = false }
-yakui = { version = "0.2.0", default-features = false }
