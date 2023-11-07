@@ -575,8 +575,9 @@ dependencies = [
 
 [[package]]
 name = "yakui-miniquad"
-version = "0.1.0"
-source = "git+https://github.com/profan/yakui-miniquad.git?branch=main#3eae42c250b8b59391b9480ef0c13da7ef9c34c0"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dd95521534bb1614f27ff8998fb82a141ca1ae1a59a062c0c24626197678d4fe"
 dependencies = [
  "miniquad",
  "yakui",
