@@ -6,6 +6,7 @@ This is a little macroquad integration for [yakui](https://github.com/SecondHalf
 ```rust
 
 use macroquad::prelude::*;
+use yakui_miniquad::yakui;
 use yakui_macroquad::*;
 
 #[macroquad::main("yakui-macroquad-example")]

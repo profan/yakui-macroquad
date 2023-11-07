@@ -8,3 +8,6 @@ edition = "2021"
 [dependencies]
 yakui-miniquad = { git = "https://github.com/profan/yakui-miniquad.git", branch = "main" }
 macroquad = { version = "0.3.24", default-features = false }
+
+[[example]]
+name = "hello-world"
