@@ -4,6 +4,9 @@ yakui-macroquad
 
 This is a little macroquad integration for [yakui](https://github.com/SecondHalfGames/yakui), built ontop of [yakui-miniquad](https://github.com/profan/yakui-miniquad).
 
+# Version
+This version is for macroquad 0.3.x and yakui 0.2.0.
+
 # Example
 ```rust
 
