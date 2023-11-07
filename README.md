@@ -9,7 +9,6 @@ This version is for macroquad 0.3.x and yakui 0.2.0.
 
 # Example
 ```rust
-
 use macroquad::prelude::*;
 use yakui_macroquad::*;
 
@@ -37,8 +36,6 @@ async fn main() {
     }
     
 }
-
-
 ```
 
 You can also run the example with `cargo run --example hello-world`.
