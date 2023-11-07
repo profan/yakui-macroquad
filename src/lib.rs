@@ -1,3 +1,47 @@
+//!
+//! `yakui-macroquad` integrates yakui with macroquad.
+//!
+//! # Usage
+//! To use this library, you call [`start`] when you wish to begin
+//! submitting ui draw commands and [`finish`] when you are done.
+//! 
+//! Though, there's also the [`ui`] helper that takes a closure and will call [`start`] before your code and [`finish`] after.
+//! But using [`start`] and [`finish`] is closer to how yakui itself does it, so that's probably what you should do.
+//! 
+//! To then render your ui, simply call [`draw`]!
+//! 
+//! ```no_run
+//! use macroquad::prelude::*;
+//!
+//! use macroquad::prelude::*;
+//! use yakui_macroquad::*;
+//!
+//! #[macroquad::main("yakui-macroquad-example")]
+//! async fn main() {
+//!    
+//!     loop {
+//!
+//!         clear_background(WHITE);
+//!
+//!         yakui_macroquad::start();
+//!
+//!         yakui::center(|| {
+//!             let mut text_box = yakui::widgets::Text::new(32.0, "hello, world!");
+//!             text_box.style.color = yakui::Color::BLACK;
+//!             text_box.show();
+//!         });
+//!
+//!         yakui_macroquad::finish();
+//!
+//!         yakui_macroquad::draw();
+//!
+//!         next_frame().await;
+//!
+//!     }
+//!    
+//! }
+//!```
+
 use macroquad::window::get_internal_gl;
 use macroquad::miniquad as mq;
 use yakui_miniquad::*;
@@ -56,27 +100,27 @@ impl Yakui {
     }
 }
 
-/// Binds the yakui context to the current thread. Must be called once per frame.
+/// Binds the yakui context to the current thread.
 pub fn start() {
     get_yakui().start();
 }
 
-/// Finishes the current yakui context and prepares it for rendering. Must be called once per frame.
+/// Finishes the current yakui context and prepares it for rendering.
 pub fn finish() {
     get_yakui().finish();
 }
 
-/// Calculates yakui ui. Must be called once per frame.
+/// Allows you to submit commands to the yakui context inside the scope of the closure passed, calls [`start`] and [`finish`] for you.
 pub fn ui<F: FnOnce(&mut yakui::Yakui)>(f: F) {
     get_yakui().ui(|ctx| f(ctx))
 }
 
-/// Configure yakui without beginning or ending a frame.
+/// Allows you configure the yakui context within the scope of the closure passed, if you need to.
 pub fn cfg<F: FnOnce(&mut yakui::Yakui)>(f: F) {
     f(get_yakui().0.ctx());
 }
 
-/// Draw yakui ui. Must be called after `ui` and once per frame.
+/// Draws the yakui ui. Must be called after `finish`/`ui` and once per frame.
 pub fn draw() {
     get_yakui().draw()
 }
