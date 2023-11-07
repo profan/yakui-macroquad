@@ -4,7 +4,6 @@
 //! # Usage
 //! To use this library, you call [`start`] when you wish to begin
 //! submitting ui draw commands and [`finish`] when you are done.
-//! (just like regular yakui really)
 //! 
 //! Though, there's also the [`ui`] helper that takes a closure and will call [`start`] before your code and [`finish`] after.
 //! But using [`start`] and [`finish`] is closer to how yakui itself does it, so that's probably what you should do.
