@@ -1,5 +1,4 @@
 use macroquad::prelude::*;
-use yakui_miniquad::yakui;
 use yakui_macroquad::*;
 
 #[macroquad::main("yakui-macroquad-example")]

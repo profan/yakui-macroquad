@@ -2,6 +2,7 @@ use macroquad::window::get_internal_gl;
 use macroquad::miniquad as mq;
 use yakui_miniquad::*;
 
+pub use yakui_miniquad::yakui;
 pub use macroquad;
 
 struct Yakui(YakuiMiniQuad, usize);
