@@ -3,15 +3,13 @@
 //!
 //! # Usage
 //! To use this library, you call [`start`] when you wish to begin
-//! submitting ui draw commands and [`finish`] when you are 
+//! submitting ui draw commands and [`finish`] when you are done.
 //!
-
-//! 
 //! Though, there's also the [`ui`] helper that takes a closure and will call [`start`] before your code and [`finish`] after.
 //! But using [`start`] and [`finish`] is closer to how yakui itself does it, so that's probably what you should do.
-//! 
+//!
 //! To then render your ui, simply call [`draw`]!
-//! 
+//!
 //! ```no_run
 //! use macroquad::prelude::*;
 //! use yakui_macroquad::*;
@@ -42,12 +40,12 @@
 //! }
 //!```
 
-use macroquad::window::get_internal_gl;
 use macroquad::miniquad as mq;
+use macroquad::window::get_internal_gl;
 use yakui_miniquad::*;
 
-pub use yakui_miniquad::yakui;
 pub use macroquad;
+pub use yakui_miniquad::yakui;
 
 struct Yakui(YakuiMiniQuad, usize);
 
@@ -84,7 +82,8 @@ impl Yakui {
     }
 
     fn ui<F>(&mut self, f: F)
-        where F : FnOnce(&mut yakui::Yakui) -> ()
+    where
+        F: FnOnce(&mut yakui::Yakui) -> (),
     {
         let gl = unsafe { get_internal_gl() };
         macroquad::input::utils::repeat_all_miniquad_input(self, self.1);
@@ -176,18 +175,6 @@ impl mq::EventHandler for Yakui {
         repeat: bool,
     ) {
         self.0.key_down_event(ctx, keycode, keymods, repeat);
-    }
-
-    fn key_up_event(&mut self, ctx: &mut mq::Context, keycode: mq::KeyCode, keymods: mq::KeyMods) {
-        self.0.key_up_event(ctx, keycode, keymods);
-    }
-}eat);
-    }
-
-    fn key_up_event(&mut self, ctx: &mut mq::Context, keycode: mq::KeyCode, keymods: mq::KeyMods) {
-        self.0.key_up_event(ctx, keycode, keymods);
-    }
-}t);
     }
 
     fn key_up_event(&mut self, ctx: &mut mq::Context, keycode: mq::KeyCode, keymods: mq::KeyMods) {
