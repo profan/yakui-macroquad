@@ -3,9 +3,7 @@ use yakui_macroquad::*;
 
 #[macroquad::main("yakui-macroquad-example")]
 async fn main() {
-    
     loop {
-
         clear_background(WHITE);
 
         yakui_macroquad::start();
@@ -21,7 +19,5 @@ async fn main() {
         yakui_macroquad::draw();
 
         next_frame().await;
-
     }
-    
 }
