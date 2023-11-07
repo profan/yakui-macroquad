@@ -1,5 +1,7 @@
 yakui-macroquad
 -----------------------
+[![CI](https://github.com/profan/yakui-macroquad/actions/workflows/rust.yml/badge.svg)](https://github.com/profan/yakui-macroquad/actions/workflows/rust.yml)
+
 This is a little macroquad integration for [yakui](https://github.com/SecondHalfGames/yakui), built ontop of [yakui-miniquad](https://github.com/profan/yakui-miniquad).
 
 # Example
