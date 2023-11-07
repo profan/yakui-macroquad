@@ -1,6 +1,6 @@
 use macroquad::window::get_internal_gl;
+use macroquad::miniquad as mq;
 use yakui_miniquad::*;
-use miniquad as mq;
 
 pub use macroquad;
 
