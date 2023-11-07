@@ -12,8 +12,6 @@
 //! 
 //! ```no_run
 //! use macroquad::prelude::*;
-//!
-//! use macroquad::prelude::*;
 //! use yakui_macroquad::*;
 //!
 //! #[macroquad::main("yakui-macroquad-example")]
