@@ -37,5 +37,7 @@ async fn main() {
 
 ```
 
+You can also run the example with `cargo run --example hello-world`.
+
 # License
 See LICENSE
