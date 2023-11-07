@@ -11,7 +11,7 @@ keywords = ["gamedev", "graphics", "ui"]
 categories = ["gui"]
 
 [dependencies]
-yakui-miniquad = { git = "https://github.com/profan/yakui-miniquad.git", branch = "miniquad-0.3" }
+yakui-miniquad = "0.1.1"
 macroquad = { version = "0.3.24", default-features = false }
 
 [[example]]
