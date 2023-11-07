@@ -584,6 +584,7 @@ dependencies = [
 [[package]]
 name = "yakui-miniquad"
 version = "0.1.0"
+source = "git+https://github.com/profan/yakui-miniquad.git?branch=main#5e3342e383235dd679729355a9927716ce8722cf"
 dependencies = [
  "miniquad",
  "yakui",
