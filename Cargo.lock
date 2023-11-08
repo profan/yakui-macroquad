@@ -567,20 +567,21 @@ dependencies = [
 
 [[package]]
 name = "yakui-macroquad"
-version = "0.1.1"
+version = "0.2.0"
 dependencies = [
  "macroquad",
+ "yakui",
  "yakui-miniquad",
 ]
 
 [[package]]
 name = "yakui-miniquad"
-version = "0.1.1"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd95521534bb1614f27ff8998fb82a141ca1ae1a59a062c0c24626197678d4fe"
+checksum = "8556776bd3896d297f5b0d733cff103c31c4fc31b37a6eb05358e5034e4d1de1"
 dependencies = [
  "miniquad",
- "yakui",
+ "yakui-core",
 ]
 
 [[package]]

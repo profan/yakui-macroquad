@@ -13,6 +13,7 @@
 //! ```no_run
 //! use macroquad::prelude::*;
 //! use yakui_macroquad::*;
+//! use yakui::*;
 //!
 //! #[macroquad::main("yakui-macroquad-example")]
 //! async fn main() {
@@ -45,7 +46,6 @@ use macroquad::window::get_internal_gl;
 use yakui_miniquad::*;
 
 pub use macroquad;
-pub use yakui_miniquad::yakui;
 
 struct Yakui(YakuiMiniQuad, usize);
 
@@ -83,7 +83,7 @@ impl Yakui {
 
     fn ui<F>(&mut self, f: F)
     where
-        F: FnOnce(&mut yakui::Yakui) -> (),
+        F: FnOnce(&mut yakui_core::Yakui) -> (),
     {
         let gl = unsafe { get_internal_gl() };
         macroquad::input::utils::repeat_all_miniquad_input(self, self.1);
@@ -110,12 +110,12 @@ pub fn finish() {
 }
 
 /// Allows you to submit commands to the yakui context inside the scope of the closure passed, calls [`start`] and [`finish`] for you.
-pub fn ui<F: FnOnce(&mut yakui::Yakui)>(f: F) {
+pub fn ui<F: FnOnce(&mut yakui_core::Yakui)>(f: F) {
     get_yakui().ui(|ctx| f(ctx))
 }
 
 /// Allows you configure the yakui context within the scope of the closure passed, if you need to.
-pub fn cfg<F: FnOnce(&mut yakui::Yakui)>(f: F) {
+pub fn cfg<F: FnOnce(&mut yakui_core::Yakui)>(f: F) {
     f(get_yakui().0.ctx());
 }
 

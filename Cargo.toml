@@ -1,6 +1,6 @@
 [package]
 name = "yakui-macroquad"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2021"
 readme = "README.md"
 repository = "https://github.com/profan/yakui-macroquad"
@@ -11,8 +11,11 @@ keywords = ["gamedev", "graphics", "ui"]
 categories = ["gui"]
 
 [dependencies]
-yakui-miniquad = "0.1.1"
+yakui-miniquad = "0.2.0"
 macroquad = { version = "0.3.24", default-features = false }
+
+[dev-dependencies]
+yakui = "0.2.0"
 
 [[example]]
 name = "hello-world"
