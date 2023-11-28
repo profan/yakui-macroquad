@@ -99,6 +99,16 @@ impl Yakui {
     }
 }
 
+/// Returns true if the last keyboard event was sunk by yakui, and should not be handled by your game.
+pub fn has_keyboard_focus() -> bool {
+    get_yakui().0.has_keyboard_focus()
+}
+
+/// Returns true if the last mouse event was sunk by yakui, and should not be handled by your game.
+pub fn has_mouse_focus() -> bool {
+    get_yakui().0.has_mouse_focus()
+}
+
 /// Binds the yakui context to the current thread.
 pub fn start() {
     get_yakui().start();
