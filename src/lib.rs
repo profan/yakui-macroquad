@@ -72,9 +72,8 @@ impl Yakui {
     }
 
     fn start(&mut self) {
-        let ctx = unsafe { get_internal_gl() }.quad_context;
         macroquad::input::utils::repeat_all_miniquad_input(self, self.1);
-        self.0.start(ctx);
+        self.0.start();
     }
 
     fn finish(&mut self) {
@@ -85,17 +84,16 @@ impl Yakui {
     where
         F: FnOnce(&mut yakui_core::Yakui) -> (),
     {
-        let gl = unsafe { get_internal_gl() };
         macroquad::input::utils::repeat_all_miniquad_input(self, self.1);
 
-        self.0.run(gl.quad_context, f);
+        self.0.run(f);
     }
 
     fn draw(&mut self) {
         let mut gl = unsafe { get_internal_gl() };
         // Ensure that macroquad's shapes are not goint to be lost, and draw them now
         gl.flush();
-        self.0.draw(&mut gl.quad_context);
+        self.0.draw(gl.quad_context);
     }
 }
 
@@ -140,59 +138,55 @@ pub fn draw() {
 }
 
 impl mq::EventHandler for Yakui {
-    fn update(&mut self, _ctx: &mut mq::Context) {}
+    fn update(&mut self) {}
 
-    fn draw(&mut self, _ctx: &mut mq::Context) {}
+    fn draw(&mut self) {}
 
-    fn mouse_motion_event(&mut self, ctx: &mut mq::Context, x: f32, y: f32) {
-        self.0.mouse_motion_event(ctx, x, y);
+    fn mouse_motion_event(&mut self, x: f32, y: f32) {
+        self.0.mouse_motion_event(x, y);
     }
 
-    fn mouse_wheel_event(&mut self, ctx: &mut mq::Context, dx: f32, dy: f32) {
-        self.0.mouse_wheel_event(ctx, dx, dy);
+    fn mouse_wheel_event(&mut self, dx: f32, dy: f32) {
+        self.0.mouse_wheel_event(dx, dy);
     }
 
     fn mouse_button_down_event(
         &mut self,
-        ctx: &mut mq::Context,
         mb: mq::MouseButton,
         x: f32,
         y: f32,
     ) {
-        self.0.mouse_button_down_event(ctx, mb, x, y);
+        self.0.mouse_button_down_event(mb, x, y);
     }
 
     fn mouse_button_up_event(
         &mut self,
-        ctx: &mut mq::Context,
         mb: mq::MouseButton,
         x: f32,
         y: f32,
     ) {
-        self.0.mouse_button_up_event(ctx, mb, x, y);
+        self.0.mouse_button_up_event(mb, x, y);
     }
 
     fn char_event(
         &mut self,
-        ctx: &mut mq::Context,
         character: char,
         keymods: mq::KeyMods,
         repeat: bool,
     ) {
-        self.0.char_event(ctx, character, keymods, repeat);
+        self.0.char_event(character, keymods, repeat);
     }
 
     fn key_down_event(
         &mut self,
-        ctx: &mut mq::Context,
         keycode: mq::KeyCode,
         keymods: mq::KeyMods,
         repeat: bool,
     ) {
-        self.0.key_down_event(ctx, keycode, keymods, repeat);
+        self.0.key_down_event(keycode, keymods, repeat);
     }
 
-    fn key_up_event(&mut self, ctx: &mut mq::Context, keycode: mq::KeyCode, keymods: mq::KeyMods) {
-        self.0.key_up_event(ctx, keycode, keymods);
+    fn key_up_event(&mut self, keycode: mq::KeyCode, keymods: mq::KeyMods) {
+        self.0.key_up_event(keycode, keymods);
     }
 }
