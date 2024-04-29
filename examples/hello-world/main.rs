@@ -6,12 +6,16 @@ async fn main() {
     loop {
         clear_background(WHITE);
 
+        // Can also use yakui_macroquad::ui(|_| { /* draw stuff here */}); to avoid start and finish
+
         yakui_macroquad::start();
 
         yakui::center(|| {
-            let mut text_box = yakui::widgets::Text::new(32.0, "hello, world!");
-            text_box.style.color = yakui::Color::BLACK;
-            text_box.show();
+            yakui::colored_box_container(yakui::Color::CORNFLOWER_BLUE, || {
+                yakui::pad(yakui::widgets::Pad::all(16.0), || {
+                    yakui::text(32.0, "hello, world!");
+                });
+            });
         });
 
         yakui_macroquad::finish();
