@@ -82,7 +82,7 @@ impl Yakui {
 
     fn ui<F>(&mut self, f: F)
     where
-        F: FnOnce(&mut yakui_core::Yakui) -> (),
+        F: FnOnce(&mut yakui_core::Yakui),
     {
         macroquad::input::utils::repeat_all_miniquad_input(self, self.1);
 
@@ -91,7 +91,7 @@ impl Yakui {
 
     fn draw(&mut self) {
         let mut gl = unsafe { get_internal_gl() };
-        // Ensure that macroquad's shapes are not goint to be lost, and draw them now
+        // Ensure that macroquad's shapes are not going to be lost, and draw them now
         gl.flush();
         self.0.draw(gl.quad_context);
     }
@@ -150,39 +150,19 @@ impl mq::EventHandler for Yakui {
         self.0.mouse_wheel_event(dx, dy);
     }
 
-    fn mouse_button_down_event(
-        &mut self,
-        mb: mq::MouseButton,
-        x: f32,
-        y: f32,
-    ) {
+    fn mouse_button_down_event(&mut self, mb: mq::MouseButton, x: f32, y: f32) {
         self.0.mouse_button_down_event(mb, x, y);
     }
 
-    fn mouse_button_up_event(
-        &mut self,
-        mb: mq::MouseButton,
-        x: f32,
-        y: f32,
-    ) {
+    fn mouse_button_up_event(&mut self, mb: mq::MouseButton, x: f32, y: f32) {
         self.0.mouse_button_up_event(mb, x, y);
     }
 
-    fn char_event(
-        &mut self,
-        character: char,
-        keymods: mq::KeyMods,
-        repeat: bool,
-    ) {
+    fn char_event(&mut self, character: char, keymods: mq::KeyMods, repeat: bool) {
         self.0.char_event(character, keymods, repeat);
     }
 
-    fn key_down_event(
-        &mut self,
-        keycode: mq::KeyCode,
-        keymods: mq::KeyMods,
-        repeat: bool,
-    ) {
+    fn key_down_event(&mut self, keycode: mq::KeyCode, keymods: mq::KeyMods, repeat: bool) {
         self.0.key_down_event(keycode, keymods, repeat);
     }
 
