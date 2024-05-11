@@ -13,6 +13,7 @@ categories = ["gui"]
 [dependencies]
 macroquad = { version = "0.4.5", default-features = false }
 yakui-miniquad = "0.3.0"
+send_wrapper = "0.6.0"
 
 [dev-dependencies]
 yakui = "0.2.0"

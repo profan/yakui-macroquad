@@ -41,6 +41,7 @@
 //! }
 //!```
 
+use send_wrapper::SendWrapper;
 use std::sync::{RwLock, RwLockWriteGuard};
 
 use macroquad::miniquad as mq;
@@ -52,23 +53,21 @@ pub use macroquad;
 struct Yakui(YakuiMiniQuad, usize);
 
 // Global variable and global functions because it's more like macroquad way
-static mut YAKUI: RwLock<Option<Yakui>> = RwLock::new(None);
+static YAKUI: RwLock<Option<SendWrapper<Yakui>>> = RwLock::new(None);
 
-fn get_yakui() -> RwLockWriteGuard<'static, Option<Yakui>> {
-    unsafe {
-        match YAKUI.try_write() {
-            Ok(mut yakui) => {
-                if yakui.is_some() {
-                    yakui
-                } else {
-                    *yakui = Some(Yakui::new());
-                    yakui
-                }
+fn get_yakui() -> RwLockWriteGuard<'static, Option<SendWrapper<Yakui>>> {
+    match YAKUI.try_write() {
+        Ok(mut yakui) => {
+            if yakui.is_some() {
+                yakui
+            } else {
+                *yakui = Some(SendWrapper::new(Yakui::new()));
+                yakui
             }
-            Err(_) => panic!(
-                "tried to borrow yakui mutably twice, did you accidentally nest ui or cfg calls?"
-            ),
         }
+        Err(_) => panic!(
+            "tried to borrow yakui mutably twice, did you accidentally nest ui or cfg calls?"
+        ),
     }
 }
 
