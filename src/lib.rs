@@ -41,6 +41,8 @@
 //! }
 //!```
 
+use std::sync::{RwLock, RwLockWriteGuard};
+
 use macroquad::miniquad as mq;
 use macroquad::window::get_internal_gl;
 use yakui_miniquad::*;
@@ -50,15 +52,22 @@ pub use macroquad;
 struct Yakui(YakuiMiniQuad, usize);
 
 // Global variable and global functions because it's more like macroquad way
-static mut YAKUI: Option<Yakui> = None;
+static mut YAKUI: RwLock<Option<Yakui>> = RwLock::new(None);
 
-fn get_yakui() -> &'static mut Yakui {
+fn get_yakui() -> RwLockWriteGuard<'static, Option<Yakui>> {
     unsafe {
-        if let Some(yakui) = &mut YAKUI {
-            yakui
-        } else {
-            YAKUI = Some(Yakui::new());
-            YAKUI.as_mut().unwrap()
+        match YAKUI.try_write() {
+            Ok(mut yakui) => {
+                if yakui.is_some() {
+                    yakui
+                } else {
+                    *yakui = Some(Yakui::new());
+                    yakui
+                }
+            }
+            Err(_) => panic!(
+                "tried to borrow yakui mutably twice, did you accidentally nest ui or cfg calls?"
+            ),
         }
     }
 }
@@ -99,42 +108,42 @@ impl Yakui {
 
 /// Returns true if the last mouse or keyboard event was sunk by yakui, and should not be handled by your game.
 pub fn has_input_focus() -> bool {
-    get_yakui().0.has_input_focus()
+    get_yakui().as_ref().unwrap().0.has_input_focus()
 }
 
 /// Returns true if the last keyboard event was sunk by yakui, and should not be handled by your game.
 pub fn has_keyboard_focus() -> bool {
-    get_yakui().0.has_keyboard_focus()
+    get_yakui().as_ref().unwrap().0.has_keyboard_focus()
 }
 
 /// Returns true if the last mouse event was sunk by yakui, and should not be handled by your game.
 pub fn has_mouse_focus() -> bool {
-    get_yakui().0.has_mouse_focus()
+    get_yakui().as_ref().unwrap().0.has_mouse_focus()
 }
 
 /// Binds the yakui context to the current thread.
 pub fn start() {
-    get_yakui().start();
+    get_yakui().as_mut().unwrap().start();
 }
 
 /// Finishes the current yakui context and prepares it for rendering.
 pub fn finish() {
-    get_yakui().finish();
+    get_yakui().as_mut().unwrap().finish();
 }
 
 /// Allows you to submit commands to the yakui context inside the scope of the closure passed, calls [`start`] and [`finish`] for you.
 pub fn ui<F: FnOnce(&mut yakui_core::Yakui)>(f: F) {
-    get_yakui().ui(|ctx| f(ctx))
+    get_yakui().as_mut().unwrap().ui(|ctx| f(ctx))
 }
 
 /// Allows you configure the yakui context within the scope of the closure passed, if you need to.
 pub fn cfg<F: FnOnce(&mut yakui_core::Yakui)>(f: F) {
-    f(get_yakui().0.ctx());
+    f(get_yakui().as_mut().unwrap().0.ctx());
 }
 
 /// Draws the yakui ui. Must be called after `finish`/`ui` and once per frame.
 pub fn draw() {
-    get_yakui().draw()
+    get_yakui().as_mut().unwrap().draw()
 }
 
 impl mq::EventHandler for Yakui {
