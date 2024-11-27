@@ -4,3 +4,9 @@ target/
 # Added by cargo
 
 /target
+dist/hello-world_bg.wasm
+dist/hello-world.js
+dist/index.html
+www/hello-world.wasm
+www/index.html
+build_wasm.sh
